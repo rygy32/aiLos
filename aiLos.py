@@ -21,14 +21,14 @@ def import_file(k):
     ch0_len=0
     mid = mido.MidiFile(f_lst[k])
     for j in range(16):
-        chan[str(j)]=0
+        chan[str(k)+':'+str(j)]=0
     for i, track in enumerate(mid.tracks):
         for msg in track:
             msg_lst=str(msg).split('channel=')
             print(msg)
             for j in range(16):
                 if "channel="+str(j) in str(msg):
-                    chan[str(j)]=chan[str(j)] + 1
+                    chan[str(k)+':'+str(j)]=chan[str(k)+':'+str(j)] + 1
     print(chan)
 
 import_file(0)
