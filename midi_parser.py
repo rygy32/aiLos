@@ -31,6 +31,7 @@ class MKParser:
                     if message.time == 0:
                         temp_lst.append(message.note)
                     else:
+                        temp_lst.append(message.note)
                         self._sequence(old_lst,temp_lst,message.time)
                         old_lst = temp_lst
                         temp_lst = []
