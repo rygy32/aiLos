@@ -18,7 +18,7 @@ class MKOutput:
 	def _write_note(self,note):
 		return [mido.Message('note_on', note=note.note, velocity=80, time=0),mido.Message('note_off', note=note.note, velocity=0, time=(note.duration - (note.duration)% 50) + 200)]
 
-	# Write the midi file for a given length
+	# Write the midi file for a given length of notes
 	def write_midi(self,file,length=200):
 		with mido.midifiles.MidiFile() as mid:
 			track = mido.MidiTrack()
