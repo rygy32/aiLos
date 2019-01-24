@@ -22,6 +22,7 @@ class Chain:
 	# If the previous note isn't in the chain, add a random note from chain
 	# Otherwise, pick a random count and go through notes until one is selected
 	def next_note(self, prev_note):
+		print self.chain.keys()
 		if prev_note is None or prev_note.note not in self.chain.keys():
 			random_chain = self.chain[random.choice(list(self.chain.keys()))]
 			return random.choice(list(random_chain.keys()))
