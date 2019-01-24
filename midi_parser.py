@@ -4,10 +4,10 @@ from chain import Chain
 # Class for Parsing input to a MK Chain
 class MKParser:
 
-    def __init__(self, file):
+    def __init__(self, file_lst):
 
         # Instantiate parse file on instantion
-        self.file = file
+        self.file_lst = file_lst
         self.tempo = None
         self.tpb = None
         self.chain = Chain()
@@ -18,23 +18,24 @@ class MKParser:
     #    - Look for tempo messages
     #    - Sequence them into the MK Dictionary
     def _parse(self):
-        mid = mido.MidiFile(self.file)
-        self.tpb = mid.ticks_per_beat
-        old_lst = []
-        temp_lst = []
-        for track in mid.tracks:
-            for message in track:
-                #print (message)
-                if message.type == "set_tempo":
-                    self.tempo = message.tempo
-                elif message.type == "note_on":
-                    if message.time == 0:
-                        temp_lst.append(message.note)
-                    else:
-                        temp_lst.append(message.note)
-                        self._sequence(old_lst,temp_lst,message.time)
-                        old_lst = temp_lst
-                        temp_lst = []
+        for file in self.file_lst:
+            mid = mido.MidiFile(file)
+            self.tpb = mid.ticks_per_beat
+            old_lst = []
+            temp_lst = []
+            for track in mid.tracks:
+                for message in track:
+                    #print (message)
+                    if message.type == "set_tempo":
+                        self.tempo = message.tempo
+                    elif message.type == "note_on":
+                        if message.time == 0:
+                            temp_lst.append(message.note)
+                        else:
+                            temp_lst.append(message.note)
+                            self._sequence(old_lst,temp_lst,message.time)
+                            old_lst = temp_lst
+                            temp_lst = []
 
     # Add note permutations to MK Chain
     def _sequence(self, old_lst,temp_lst, duration):
