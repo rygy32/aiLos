@@ -44,8 +44,10 @@ class MKParser:
 
     # Get time using tempo and time from midi file
     def _time(self,ticks):
-        time_ms = ((ticks/self.tpb) *self.tempo)/1000
-        return int(time_ms - (time_ms % 250) + 250)
+        #print ticks
+        print ticks,self.tpb,self.tempo
+        time_ms = ((ticks*self.tempo)/self.tpb)/1000
+        return int(time_ms - (time_ms % 30) + 30)
 
     def return_chain(self):
         return self.chain

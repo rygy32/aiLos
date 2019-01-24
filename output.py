@@ -16,7 +16,7 @@ class MKOutput:
 
 	# Write out the note on/off message for extend
 	def _write_note(self,note):
-		return [mido.Message('note_on', note=note.note, velocity=80, time=0),mido.Message('note_off', note=note.note, velocity=0, time=note.duration)]
+		return [mido.Message('note_on', note=note.note, velocity=80, time=0),mido.Message('note_off', note=note.note, velocity=0, time=(note.duration - (note.duration)% 50) + 200)]
 
 	# Write the midi file for a given length
 	def write_midi(self,file,length=200):
